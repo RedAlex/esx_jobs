@@ -80,6 +80,9 @@ AddEventHandler('esx_jobs:caution', function(cautionType, cautionAmount, spawnPo
 
 	if cautionType == "take" then
 		TriggerEvent('esx_addonaccount:getAccount', 'caution', xPlayer.identifier, function(account)
+			local oldcaution = account.money
+			
+			account.removeMoney(oldcaution)
 			xPlayer.removeAccountMoney('bank', cautionAmount)
 			account.addMoney(cautionAmount)
 		end)
@@ -98,7 +101,7 @@ AddEventHandler('esx_jobs:caution', function(cautionType, cautionAmount, spawnPo
 			local toGive = ESX.Math.Round(caution * cautionAmount)
 
 			xPlayer.addAccountMoney('bank', toGive)
-			account.removeMoney(toGive)
+			account.removeMoney(caution)
 			TriggerClientEvent('esx:showNotification', source, _U('bank_deposit_returned', ESX.Math.GroupDigits(toGive)))
 		end)
 	end
