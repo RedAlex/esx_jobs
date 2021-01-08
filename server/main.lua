@@ -39,7 +39,7 @@ Citizen.CreateThread(function()
 							if v.name ~= _U('delivery') and itemQtty >= v.max then
 								xPlayer.showNotification(_U('max_limit', v.name))
 								playersWorking[playerId] = nil
-							elseif v.requires ~= 'nothing' and requiredItemQtty <= 0 then
+							elseif v.requires ~= 'nothing' and requiredItemQtty < v.remove then
 								xPlayer.showNotification(_U('not_enough', data.jobItem[1].requires_name))
 								playersWorking[playerId] = nil
 							else
